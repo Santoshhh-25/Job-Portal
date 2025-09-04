@@ -1,22 +1,22 @@
 import mongoose from "mongoose";
-import { ref } from "process";
 
 const companySchema = new mongoose.Schema({
     name: {
-        type: stringify,
-        required: true
+        type: String,
+        required: true,
+        unique:true
     },
     description: {
-        type: stringify,
+        type: String,
     },
     website: {
-        type: stringify,
+        type: String,
     },
     location: {
-        type: stringify,
+        type: String,
     },
     logo: {
-        type: stringify,
+        type: String,
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
