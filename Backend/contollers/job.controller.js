@@ -20,7 +20,8 @@ export const postJob = async (req, res) => {
             location,
             jobType,
             experienceLevel: experience,
-            jobPosition: Position, company: companyId, created_by: userId
+            jobPosition: Position, company: companyId, created_by: userId,
+            application: []
         })
         return res.status(201).json({
             msg: "New job created successfully",
@@ -51,7 +52,7 @@ export const getAllJobs = async (req, res) => {
         }
         return res.status(200).json({
             jobs,
-            success: false
+            success: true
         })
     } catch (error) {
         console.log(error)
@@ -61,7 +62,7 @@ export const getAllJobs = async (req, res) => {
 export const getJobByid = async (req, res) => {
     try {
         const jobId = req.params.id;
-        const job = await Job.findById(jobId);
+        const job = await Job.findById(jobId).populate("application");
         if (!job) {
             return res.status(404).json({
                 msg: "Job not found",
