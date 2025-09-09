@@ -41,7 +41,7 @@ export const Navbar = () => {
                                     </Avatar>
                                 </PopoverTrigger>
                                 <PopoverContent className='w-80'>
-                                    <div>
+                                    <div className='bg-white'>
                                         <div className='flex gap-2 space-y-2'>
                                             <Avatar className="cursor-pointer">
                                                 <AvatarImage src="https://github.com/shadcn.png" />
