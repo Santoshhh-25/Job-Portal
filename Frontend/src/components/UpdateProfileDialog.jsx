@@ -71,36 +71,36 @@ const fileChangeHandler = (e) =>{
                         <div className='grid gap-4 py-4'>
                             <div className='grid grid-cols-4 items-center gap-4'>
                                 <Label className={'text-right'} htmlFor='name'>Name</Label>
-                                <Input id="name" className={'col-span-3'} name="name" type={'text'} value={input.fullname} onChange={changeEventHandler}></Input>
+                                <Input id="name" className={'col-span-3'} name="fullname" type={'text'} value={input.fullname} onChange={changeEventHandler}></Input>
                             </div>
                         </div>
                         <div className='grid gap-4 py-4'>
                             <div className='grid grid-cols-4 items-center gap-4'>
-                                <Label className={'text-right'} htmlFor='name'>Email</Label>
+                                <Label className={'text-right'} htmlFor='email'>Email</Label>
                                 <Input id="email" className={'col-span-3'} name="email" type="email" value={input.email} onChange={changeEventHandler}></Input>
                             </div>
                         </div>
                         <div className='grid gap-4 py-4'>
                             <div className='grid grid-cols-4 items-center gap-4'>
-                                <Label className={'text-right'} htmlFor='name'>PhoneNumber</Label>
-                                <Input id="number" className={'col-span-3'} name="number" value={input.phoneNumber} onChange={changeEventHandler}></Input>
+                                <Label className={'text-right'} htmlFor='phoneNumber'>PhoneNumber</Label>
+                                <Input id="number" className={'col-span-3'} name="phoneNumber" value={input.phoneNumber} onChange={changeEventHandler}></Input>
                             </div>
                         </div>
                         <div className='grid gap-4 py-4'>
                             <div className='grid grid-cols-4 items-center gap-4'>
-                                <Label className={'text-right'} htmlFor='name'>Bio</Label>
+                                <Label className={'text-right'} htmlFor='bio'>Bio</Label>
                                 <Input id="bio" className={'col-span-3'}  type="text" name="bio" value={input.bio} onChange={changeEventHandler}></Input>
                             </div>
                         </div>
                         <div className='grid gap-4 py-4'>
                             <div className='grid grid-cols-4 items-center gap-4'>
-                                <Label className={'text-right'} htmlFor='name'>skills</Label>
+                                <Label className={'text-right'} htmlFor='skills'>skills</Label>
                                 <Input id="skills" className={'col-span-3'} name="skills" type={'text'} value={input.skills} onChange={changeEventHandler}></Input>
                             </div>
                         </div>
                         <div className='grid gap-4 py-4'>
                             <div className='grid grid-cols-4 items-center gap-4'>
-                                <Label className={'text-right'} htmlFor='name'>Resume</Label>
+                                <Label className={'text-right'} htmlFor='file'>Resume</Label>
                                 <Input id="file" className={'col-span-3'} name="file" type={'file'} accept='application/pdf' onChange={fileChangeHandler}></Input>
                             </div>
                         </div>
