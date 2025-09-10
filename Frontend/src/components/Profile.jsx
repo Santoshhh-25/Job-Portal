@@ -52,7 +52,7 @@ const Profile = () => {
           </div>
         </div>
         <div className='grid w-full max-w-sm items-center gap-1.5'>
-          <Label className={'text-md font-bold'}>Resume</Label>
+          <Label className={'text-md font-bold'}>Resume <span className='font-normal text-sm text-gray-500'>(.jpg)</span></Label>
 
           {
             isResume ? <a className=" text-blue-500 hover:underline cursor-pointer" target='blank' href={user?.profile?.resume}> {user?.profile?.resumeOriginalName} </a> : <span>NA</span>
