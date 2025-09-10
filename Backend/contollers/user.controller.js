@@ -91,7 +91,7 @@ export const login = async (req, res) => {
 }
 export const logout = async (req, res) => {
     try {
-        return res.status(200).cookie("token", "", { macAge: 0 }).json({
+        return res.status(200).cookie("token", "", { maxAge: 0 }).json({
             msg: "logged out successfully",
             success: true
         })
@@ -101,48 +101,62 @@ export const logout = async (req, res) => {
 }
 
 export const updateProfile = async (req, res) => {
-
     try {
         const { fullname, email, phoneNumber, bio, skills } = req.body;
         const file = req.file;
 
-        //cloudinary here;
-        const fileUri = getDataUri(file);
-        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+        let cloudResponse;
 
+        // ✅ Only upload if file exists
+        if (file) {
+            const fileUri = getDataUri(file);
+            cloudResponse = await cloudinary.uploader.upload(fileUri.content, {
+                resource_type: file.mimetype === "application/pdf" ? "raw" : "auto",
+                folder: "resumes",
+            });
+        }
 
-
-        let skillsArray
+        let skillsArray;
         if (skills) {
             skillsArray = skills.split(",");
-
         }
-        const userId = req.id;
 
+        const userId = req.id;
         let user = await User.findById(userId);
         if (!user) {
             return res.status(400).json({
                 msg: "User not found",
-                success: false
-            })
+                success: false,
+            });
         }
+
         if (!user.profile) {
             user.profile = {};
         }
-        //upadting data;
+
+        // ✅ Update normal fields
         if (fullname) user.fullname = fullname;
         if (email) user.email = email;
         if (phoneNumber) user.phoneNumber = phoneNumber;
         if (bio) user.profile.bio = bio;
         if (skills) user.profile.skills = skillsArray;
 
-        //resume comes here.....
-        if(cloudResponse){
-            user.profile.resume = cloudResponse.secure_url
+        // ✅ Resume upload only if file present
+        if (cloudResponse) {
+            let resumeUrl = cloudResponse.secure_url;
+
+            // inline display for PDFs
+            if (file.mimetype === "application/pdf") {
+                resumeUrl = resumeUrl.replace(
+                    "/upload/",
+                    "/upload/fl_attachment:false/"
+                );
+            }
+
+            user.profile.resume = resumeUrl;
             user.profile.resumeOriginalName = file.originalname;
         }
 
-        
         await user.save();
 
         user = {
@@ -151,16 +165,18 @@ export const updateProfile = async (req, res) => {
             email: user.email,
             phoneNumber: user.phoneNumber,
             role: user.role,
-            profile: user.profile
+            profile: user.profile,
+        };
 
-        }
         return res.status(200).json({
             msg: "Profile updated successfully",
             user,
-            success: true
-        })
+            success: true,
+        });
     } catch (error) {
-        console.log(error)
-        return res.status(500).json({ msg: "Server error", error: error.message, success: false });
+        console.log(error);
+        return res
+            .status(500)
+            .json({ msg: "Server error", error: error.message, success: false });
     }
-}
+};

@@ -55,7 +55,7 @@ const Profile = () => {
           <Label className={'text-md font-bold'}>Resume</Label>
 
           {
-            isResume ? <a className=" text-blue-500 hover:underline cursor-pointer" target='blank' href='https://youtube.com'>{user?.profile?.resumeOriginalname}</a> : <span>NA</span>
+            isResume ? <a className=" text-blue-500 hover:underline cursor-pointer" target='blank' href={user?.profile?.resume}> {user?.profile?.resumeOriginalName} </a> : <span>NA</span>
 
           }
         </div>
