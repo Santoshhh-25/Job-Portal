@@ -12,13 +12,13 @@ import { USER_API_END_POINT } from '@/utils/constant';
 import { setUser } from '@/redux/authSlice';
 
 export const Navbar = () => {
-    const {user}  =  useSelector(store=>store.auth);
+    const { user } = useSelector(store => store.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const logoutHandler = async () =>{
+    const logoutHandler = async () => {
         try {
-            const res = axios.get(`${USER_API_END_POINT}/logout`, {withCredentials:true});
-            if((await res).data.success){
+            const res = axios.get(`${USER_API_END_POINT}/logout`, { withCredentials: true });
+            if ((await res).data.success) {
                 dispatch(setUser(null));
                 navigate("/");
                 toast.success(res.data.msg);
@@ -73,7 +73,7 @@ export const Navbar = () => {
                                         <div className='flex flex-col my-2 text-gray-600'>
                                             <div className='flex w-fit items-center gap-2 cursor-pointer'>
                                                 <User2></User2>
-                                                    <Button variant="link"><Link to={'/profile'}>View Profile</Link></Button>
+                                                <Button variant="link"><Link to={'/profile'}>View Profile</Link></Button>
                                             </div>
                                             <div className='flex w-fit items-center gap-2 cursor-pointer'>
                                                 <LogOut></LogOut>
