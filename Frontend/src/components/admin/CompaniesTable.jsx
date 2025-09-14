@@ -3,7 +3,7 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 import { Avatar } from '../ui/avatar'
 import { AvatarImage } from '@radix-ui/react-avatar'
 import { Popover, PopoverContent, PopoverTrigger } from '@radix-ui/react-popover'
-import { Edit2 } from 'lucide-react'
+import { Edit2, MoreHorizontal } from 'lucide-react'
 
 const CompaniesTable = () => {
   return (
@@ -28,16 +28,13 @@ const CompaniesTable = () => {
           </TableCell>
           <TableCell>Company name</TableCell>
           <TableCell>date</TableCell>
-          <TableCell>
+          <TableCell className="text-right">
             <Popover>
-              <PopoverTrigger>MoreHorixontal</PopoverTrigger>
+              <PopoverTrigger><MoreHorizontal className='cursor-pointer'/></PopoverTrigger>
               <PopoverContent className='w-32'>
-                <div>
-                  <Edit2>
-                    <span>
-                      Edit
-                    </span>
-                  </Edit2>
+                <div className='flex items-center gap-2 w-fit'>
+                  <Edit2 className='w-4'/>
+                    <span>Edit</span>
                 </div>
               </PopoverContent>
             </Popover>

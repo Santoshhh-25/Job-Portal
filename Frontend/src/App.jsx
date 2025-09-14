@@ -7,6 +7,8 @@ import Browse from './components/Browse'
 import Profile from './components/Profile'
 import JobDescription from './components/JobDescription'
 import Companies from './components/admin/Companies'
+import CompanyCreate from './components/admin/CompanyCreate'
+import CompanySetup from './components/admin/CompanySetup'
 
 
 const appRouter = createBrowserRouter([
@@ -21,13 +23,13 @@ const appRouter = createBrowserRouter([
     element: <Signup></Signup>
   },
   {
-    path:'/jobs',
-    element:<Jobs/>
+    path: '/jobs',
+    element: <Jobs />
   },
   {
     path: '/browse',
     element: <Browse />
-  },{
+  }, {
     path: '/profile',
     element: <Profile />
   },
@@ -39,14 +41,22 @@ const appRouter = createBrowserRouter([
   //for admin
   {
     path: '/admin/companies',
-    element:<Companies />
+    element: <Companies />
+  },
+  {
+    path: '/admin/companies/create',
+    element: <CompanyCreate />
+  },
+  {
+    path: '/admin/companies/:id',
+    element: <CompanySetup />
   }
 ])
 function App() {
 
   return (
     <>
-     <RouterProvider router ={appRouter}></RouterProvider>
+      <RouterProvider router={appRouter}></RouterProvider>
     </>
   )
 }
