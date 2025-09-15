@@ -1,12 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../shared/Navbar'
-import { Form } from 'react-router-dom'
+import { Form, useNavigate, useParams } from 'react-router-dom'
 import { Button } from '../ui/button'
 import { ArrowLeft } from 'lucide-react'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
+import axios from 'axios'
+import { COMPANY_API_END_POINT } from '@/utils/constant'
+import { toast } from 'sonner'
+import { useSelector } from 'react-redux'
+import store from '@/redux/store'
 
 const CompanySetup = () => {
+    const params = useParams();
     const [input, setInput] = useState({
         name: "",
         description: "",
@@ -14,8 +20,10 @@ const CompanySetup = () => {
         location: "",
         file: null
     });
+    const {singleCompany} = useSelector(store=>store.company);
 
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
@@ -26,28 +34,53 @@ const CompanySetup = () => {
     }
     const submitHandler = async (e) => {
         e.preventDefault();
-       const formData = new FormData;
-       formData.append("name".input.name);
-        formData.append("description".input.description);
-        formData.append("website".input.website);
-        formData.append("location".input.location);
-        if(input.file){
-            formData.append("file".input.file);
+        const formData = new FormData;
+        formData.append("name",input.name);
+        formData.append("description",input.description);
+        formData.append("website",input.website);
+        formData.append("location",input.location);
+        if (input.file) {
+            formData.append("file",input.file);
         }
         try {
-            
+            setLoading(true);
+            const res = await axios.put(`${COMPANY_API_END_POINT}/update/${params.id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                withCredentials: true
+            });
+            if (res.data.success) {
+                toast.success(res.data.msg);
+                navigate("/admin/companies");
+            }
         } catch (error) {
-            
+            console.log(error)
+            toast.error(error.response.data.msg);
+        } finally{
+            setLoading(false);
         }
-    }
-
+    }   
+    useEffect(() => {
+        if (singleCompany) {
+            setInput({
+                name: singleCompany.name || "",
+                description: singleCompany.description || "",
+                website: singleCompany.website || "",
+                location: singleCompany.location || "",
+                file: null,
+            });
+            console.log("Form prefilled with:", singleCompany);
+        }
+    }, [singleCompany]); 
+   
     return (
         <div>
             <Navbar />
             <div className='max-w-xl mx-auto my-10'>
                 <Form onSubmit={submitHandler}>
                     <div className='flex items-center gap-5 p-8'>
-                        <Button className={'flex items-center gap-2 text-gray-500 font-semibold'} variant={'outline'}>
+                        <Button onClick={()=>{navigate("/admin/companies")}} className={'flex items-center gap-2 text-gray-500 font-semibold'} variant={'outline'}>
                             <ArrowLeft></ArrowLeft>
                             <span>Back</span>
                         </Button>
@@ -99,7 +132,9 @@ const CompanySetup = () => {
                             />
                         </div>
                     </div>
-                    <Button className={'w-full mt-8'} type='submit'>Update</Button>
+                    {
+                        loading ? <Button className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin'></Loader2>Update</Button> : <Button type="submit" className="w-full my-4 cursor-pointer">Update</Button>
+                    }
                 </Form>
             </div>
         </div>

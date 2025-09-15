@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const companySlice = createSlice({
     name:"company",
     initialState:{
-        singleCompany:null
+        singleCompany: null
     },
     reducers:{
         setSingleCompany:(state, action) =>{

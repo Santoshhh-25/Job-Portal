@@ -1,4 +1,3 @@
-import { Stats } from "fs";
 import { Company } from "../models/company.model.js";
 
 export const registerCompany = async (req, res) => {
@@ -62,8 +61,8 @@ export const getCompanyById = async (req, res) => {
             })
         }
         return res.status(200).json({
-            company,
-            success: true
+            success: true,
+            company
         })
     } catch (error) {
         console.log(error)
@@ -85,6 +84,7 @@ export const updateCompany = async (req, res) => {
         }
         return res.status(200).json({
             msg: "Company information Updated",
+            company,
             success: true
         })
     } catch (error) {

@@ -24,7 +24,7 @@ const CompanyCreate = () => {
             withCredentials: true
           });
           if(res?.data?.success){
-            dispatch(setSingleCompany(res.data.msg));
+            dispatch(setSingleCompany(res.data.company));
             toast.success(res.data.msg);
             const companyId = res?.data?.company?._id;
             navigate(`/admin/companies/${companyId}`);
@@ -46,7 +46,7 @@ const CompanyCreate = () => {
                 </Label>
                 <Input type={'text'}
                     className={"my-2"}
-                    placeholder="JobHuny, Google etc."
+                    placeholder="JobHunt, Google etc."
                     onChange = {(e) => setCompanyName(e.target.value)}>
                 </Input>
                 <div className='flex items-center gap-2 my-10'>
