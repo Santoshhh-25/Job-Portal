@@ -9,7 +9,6 @@ import AppliedJobTable from './appliedJobTable'
 import UpdateProfileDialog from './UpdateProfileDialog'
 import { useSelector } from 'react-redux'
 
-// const skills = ["Html", "css", "js", "reactjs"];
 const isResume = true;
 
 const Profile = () => {
@@ -23,7 +22,7 @@ const Profile = () => {
         <div className='flex justify-between'>
           <div className='flex items-center gap-4'>
             <Avatar className={'h-20 w-20'}>
-              <AvatarImage src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Dell_Logo.svg/2048px-Dell_Logo.svg.png">
+              <AvatarImage src={user?.profile?.profilePhoto}>
               </AvatarImage>
             </Avatar>
             <div>
