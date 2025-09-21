@@ -13,7 +13,7 @@ const CompaniesTable = () => {
   useEffect(() =>{
     const filteredCompany = companies.length >= 0 && companies.filter((company) =>{
       if(!searchCompanyByText){
-        return true;
+        return "false";
       };
       return company?.name?.toLowerCase().includes(searchCompanyByText.toLowerCase());
     });
