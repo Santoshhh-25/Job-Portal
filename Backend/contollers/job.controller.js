@@ -1,6 +1,4 @@
-import { title } from "process";
 import { Job } from "../models/job.model.js";
-import { Console } from "console";
 
 export const postJob = async (req, res) => {
     try {
@@ -20,7 +18,9 @@ export const postJob = async (req, res) => {
             location,
             jobType,
             experienceLevel: experience,
-            jobPosition: Position, company: companyId, created_by: userId,
+            jobPosition: Position, 
+            company: companyId, 
+            created_by: userId,
             application: []
         })
         return res.status(201).json({
@@ -30,6 +30,10 @@ export const postJob = async (req, res) => {
         })
     } catch (error) {
         console.log(error)
+        return res.status(500).json({
+            msg:"Internal server error",
+            success:false
+        })
     }
 }
 export const getAllJobs = async (req, res) => {
@@ -74,7 +78,7 @@ export const getJobByid = async (req, res) => {
             success: true
         })
     } catch (error) {
-        Console.log(Error)
+        console.log(Error)
     }
 }
 
