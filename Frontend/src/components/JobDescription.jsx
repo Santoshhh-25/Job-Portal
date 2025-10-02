@@ -39,7 +39,7 @@ const JobDescription = () => {
     const fetchSingleJob = async () => {
       try {
         const res = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`, { withCredentials: true });
-        console.log(res.data)
+       // console.log(res.data)
         if (res.data.success) {
           dispatch(setSingleJob(res.data.job));
           setIsApplied(res.data.job.application.some(application =>application.applicant == user?._id))

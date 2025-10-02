@@ -56,7 +56,7 @@ const submitHandler = async (e) =>{
         setLoading(false);
     }
     setOpen(false);
-    console.log(input);
+    //console.log(input);
     
 }
 const fileChangeHandler = (e) =>{
